@@ -77,6 +77,7 @@ def Uxb(U,n,b):
 
 n=6
 H = np.array(Hilbert(n))
+print("Hilbert")
 print(H)
 x = np.ones((n,1))
 # print(x)
@@ -84,21 +85,22 @@ b = H.dot(x)
 # print(b)
 
 L = Cholesky(H,n)
-# print(L)
+print("\nL")
+print(L)
 
 LT = np.transpose(L)
-# print(LT)
+print("\nLT")
+print(LT)
 
+print("\nnp.dot(L,LT)")
 print(np.dot(L,LT))
 
 # print(np.dot(L,LT)==H)
 
 y = Lxb(L,n,b)
-
 print(y)
 
 x = Uxb(LT,n,y)
-
 print(x)
 
 # 解方程
