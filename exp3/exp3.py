@@ -1,4 +1,5 @@
 
+from copy import deepcopy
 import numpy as np
 
 
@@ -33,6 +34,8 @@ def Hilbert(n:int):
 #             lj = L[j][0:j-1]
 #             L[i][j] = (A[i][j]-np.vdot(li,lj))/L[j][j]
 #     return L
+
+# Cholesky分解，已进行测试
 def Cholesky(A,n):
     L=A
     for j in range(1,n+1,1):
@@ -53,11 +56,20 @@ def Cholesky(A,n):
 # n：n*n的方阵
 # b：方程右边
 def Lxb(L,n,b):
+    print("Lxb")
+    print(L)
+    print("b")
+    print(b)
     x=np.zeros((n,1))
     for i in range(0,n,1):
+        print("x")
+        print(x)
         x[i]=b[i]
-        for j in range(0,i-1,1):
+        for j in range(0,i,1):
             x[i]=x[i]-L[i][j]*x[j]
+        x[i]=x[i]/L[i][i]
+    print("Lxb ans")
+    print(x)
     return x
 
 # 上三角阵，解方程
@@ -65,24 +77,34 @@ def Lxb(L,n,b):
 # n：n*n的方阵
 # b：方程右边
 def Uxb(U,n,b):
+    print("Uxb")
+    print(U)
+    print("b")
+    print(b)
     x=np.zeros((n,1))
-    for i in range(n,0,-1):
-        if(U[i-1][i-1]==0):
+    for i in range(n-1,-1,-1):
+        print("x")
+        print(x)
+        if(U[i][i]==0):
             break
-        x[i-1]=b[i-1]
-        for j in range(n,i,-1):
-            x[i-1]=x[i-1]-U[i-1][j-1]*x[j-1]
-        x[i-1]=x[i-1]/U[i-1][i-1]
+        x[i]=b[i]
+        for j in range(n-1,i,-1):
+            x[i]=x[i]-U[i][j]*x[j]
+        x[i]=x[i]/U[i][i]
     return x
 
-n=6
+n=2
 H = np.array(Hilbert(n))
 print("Hilbert")
 print(H)
+
+Hbt = deepcopy(H)
+print(Hbt)
+
 x = np.ones((n,1))
 # print(x)
 b = H.dot(x)
-# print(b)
+print("b =",b)
 
 L = Cholesky(H,n)
 print("\nL")
@@ -98,10 +120,10 @@ print(np.dot(L,LT))
 # print(np.dot(L,LT)==H)
 
 y = Lxb(L,n,b)
-print(y)
+print("y =",y)
 
 x = Uxb(LT,n,y)
-print(x)
+print("x =",x)
 
 # 解方程
 
