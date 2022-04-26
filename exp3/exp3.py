@@ -1,6 +1,7 @@
 
 from copy import deepcopy
 import numpy as np
+import random
 
 
 # 生成Hilbert矩阵
@@ -13,6 +14,7 @@ def Hilbert(n:int):
         H.append(hi)
     return H
 
+'''
 # 巧克力分解
 # 分成下三角巧克力和上三角巧克力
 # def Cholesky(A):
@@ -34,6 +36,7 @@ def Hilbert(n:int):
 #             lj = L[j][0:j-1]
 #             L[i][j] = (A[i][j]-np.vdot(li,lj))/L[j][j]
 #     return L
+'''
 
 # Cholesky分解，已进行测试
 def Cholesky(A,n):
@@ -93,7 +96,7 @@ def Uxb(U,n,b):
         x[i]=x[i]/U[i][i]
     return x
 
-n=2
+n=12
 H = np.array(Hilbert(n))
 print("Hilbert")
 print(H)
@@ -105,6 +108,11 @@ x = np.ones((n,1))
 # print(x)
 b = H.dot(x)
 print("b =",b)
+
+B = deepcopy(b)
+
+# INFO: 2增加扰动
+# b[random.randint(0,n)] += 1e-7
 
 L = Cholesky(H,n)
 print("\nL")
@@ -122,8 +130,19 @@ print(np.dot(L,LT))
 y = Lxb(L,n,b)
 print("y =",y)
 
-x = Uxb(LT,n,y)
-print("x =",x)
+xx = Uxb(LT,n,y)
+print("xx =",xx)
+
+deltx = x - xx
+
+norm_xx = max(abs(i) for i in deltx)
+
+r = B - Hbt.dot(xx)
+
+norm_r = max(abs(i) for i in r)
+
+print(norm_xx)
+print(norm_r)
 
 # 解方程
 
