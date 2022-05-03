@@ -65,4 +65,5 @@ def gauss_seidel():
     print(2*x1[0]-3*x1[1]+10*x1[2])
 
 
-gauss_seidel()
+# gauss_seidel()
+jacobi()
