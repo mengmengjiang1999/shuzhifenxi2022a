@@ -1,8 +1,4 @@
-from cProfile import label
-from cmath import sin
-from operator import itemgetter
-
-from numpy import double, real, log10
+from numpy import double, log10
 
 def trunc(h: double, M: double)->double:
     return M*h/2

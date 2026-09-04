@@ -6,7 +6,6 @@
 
 
 from scipy.special import jv
-from re import L
 from numpy import double
 from numpy import sign
 
@@ -75,7 +74,6 @@ def zeroin(func, s: double, t:double)->double:
             fb=fa
             fa=fc
         m = 0.5*(a-b)
-        eps_float = 0.6e-7 # float accuracy
         eps_double = 1e-16
         tol = 2.0 * eps_double * max(abs(b), 1.0)
         if abs(m)<=tol or fb==0.0:

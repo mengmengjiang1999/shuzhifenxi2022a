@@ -1,7 +1,3 @@
-import imp
-from pprint import pprint
-
-
 from numpy import double
 
 def newton(x: double, f, df, lmd0 = 1)->double:

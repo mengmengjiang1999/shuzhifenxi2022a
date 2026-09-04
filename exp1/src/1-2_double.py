@@ -1,6 +1,5 @@
 
-from cv2 import ROTATE_90_COUNTERCLOCKWISE
-from numpy import double, float32
+from numpy import double
 
 
 def cal():
